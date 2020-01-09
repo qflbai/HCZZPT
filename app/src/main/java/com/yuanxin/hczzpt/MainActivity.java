@@ -1,6 +1,7 @@
 package com.yuanxin.hczzpt;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.qflbai.lib.base.activity.BaseActivity;
 import com.yuanxin.hczzpt.home.ui.fragment.ManagerFragment;
 import com.yuanxin.hczzpt.home.ui.fragment.PlatformsFragment;
+import com.yuanxin.hczzpt.platforms.TeamDetailsActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -59,7 +61,8 @@ public class MainActivity extends BaseActivity {
             }
             fragmentTransaction.replace(R.id.rl, platformsFragment);
             fragmentTransaction.commit();
-            ;
+            Intent intent = new Intent(mContext, TeamDetailsActivity.class);
+            startActivity(intent);
         }
     }
 

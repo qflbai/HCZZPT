@@ -53,8 +53,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 
-    implementation files('libs\\baseLib-release.aar')// (可选)
+    implementation files('libs\\baseLib-release.aar')
     implementation files('libs\\pickerview-release.aar')
+    //implementation files('libs\\baseAdapterLib-release.aar')
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.0-beta10'
     // implementation(name: 'baseLib-release', ext: 'aar')
     // implementation files('libs/xstream-1.4.11.1.jar')
 
