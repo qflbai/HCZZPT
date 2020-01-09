@@ -10,6 +10,11 @@ import com.qflbai.lib.base.activity.BaseActivity;
 import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.platforms.adapter.NormalMultipleEntity;
 import com.yuanxin.hczzpt.platforms.adapter.TeamDetailsAdapter;
+import com.yuanxin.hczzpt.platforms.adapter.provider.CjrInfoProvider;
+import com.yuanxin.hczzpt.platforms.adapter.provider.CsInfoProvider;
+import com.yuanxin.hczzpt.platforms.adapter.provider.LawCaseDetailsProvider;
+import com.yuanxin.hczzpt.platforms.adapter.provider.LawCaseInfoProvider;
+import com.yuanxin.hczzpt.platforms.adapter.provider.TitleProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +44,16 @@ public class TeamDetailsActivity extends BaseActivity {
             list.add(new NormalMultipleEntity(NormalMultipleEntity.CJR_INFO));
             list.add(new NormalMultipleEntity(NormalMultipleEntity.TITLE));
             list.add(new NormalMultipleEntity(NormalMultipleEntity.LAW_CASE_INFO));
+            list.add(new NormalMultipleEntity(NormalMultipleEntity.XYR_INFO));
         }
 
         TeamDetailsAdapter teamDetailsAdapter = new TeamDetailsAdapter(list);
+        teamDetailsAdapter.addItemProvider(new CjrInfoProvider());
+        teamDetailsAdapter.addItemProvider(new TitleProvider());
+        teamDetailsAdapter.addItemProvider(new LawCaseInfoProvider());
+        teamDetailsAdapter.addItemProvider(new LawCaseDetailsProvider());
+        CsInfoProvider csInfoProvider = new CsInfoProvider();
+        teamDetailsAdapter.addItemProvider(csInfoProvider);
         mRv.setAdapter(teamDetailsAdapter);
     }
 }

@@ -11,7 +11,8 @@ public class NormalMultipleEntity {
     public static final int CJR_INFO = 3;
     //案件信息
     public static final int LAW_CASE_INFO= 4;
-
+    //嫌疑人信息
+    public static final int XYR_INFO = 5;
     public int type;
     public Object content;
 
