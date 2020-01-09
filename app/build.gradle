@@ -1,0 +1,155 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.yuanxin.hczzpt"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    gradle.startParameter.getTaskNames().each { task ->
+        //library里 BuildConfig.DEBUG默认一直是flase;所以需要自定义
+        if (task.contains("Debug")) {
+            android {
+                defaultPublishConfig "debug"
+            }
+
+        } else if (task.contains("Release")) {
+            android {
+                defaultPublishConfig "release"
+            }
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+    implementation files('libs\\baseLib-release.aar')// (可选)
+    implementation files('libs\\pickerview-release.aar')
+    // implementation(name: 'baseLib-release', ext: 'aar')
+    // implementation files('libs/xstream-1.4.11.1.jar')
+
+    implementation 'com.google.dagger:dagger-android:2.23.2'
+    implementation 'com.google.dagger:dagger-android-support:2.23.2'
+
+    // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.23.2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.23.2'
+
+    // fastjson
+    implementation 'com.alibaba:fastjson:1.2.59'
+    implementation 'com.alibaba:fastjson:1.2.59.android'
+
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
+
+    // okhttp
+    implementation 'com.squareup.okhttp3:okhttp:3.12.3'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.11.0'
+
+    // rxjava2
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
+    // multiDexEnabled
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    //图片轮播
+    // api 'com.youth.banner:banner:1.4.10'
+
+    // glide
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    //room
+    implementation 'androidx.room:room-runtime:2.1.0'
+    annotationProcessor 'androidx.room:room-compiler:2.1.0'
+
+    // optional - RxJava support for Room
+    implementation 'androidx.room:room-rxjava2:2.1.0'
+
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation 'androidx.room:room-guava:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+    // evenbus
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
+    // 状态栏基础依赖包，必须要依赖
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    // fragment快速实现（可选）
+    implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
+
+    // 权限
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+
+    //基础工具库
+    implementation 'com.github.tamsiree.RxTool:RxKit:v2.4.1'
+    //相机库
+    implementation 'com.github.tamsiree.RxTool:RxCamera:v2.4.1'
+    //UI库
+    implementation 'com.github.tamsiree.RxTool:RxUI:v2.4.1'
+    //(依赖RxUI库时，需要额外依赖 cardview 库)
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    //小红点 1.1.8
+    /*implementation 'cn.bingoogolapple:bga-badgeview-api:1.1.8'
+        annotationProcessor "cn.bingoogolapple:bga-badgeview-compiler:1.1.8"*/
+    implementation 'q.rorbin:badgeview:1.1.3'
+
+    //刷新
+    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1'
+    implementation 'com.scwang.smart:refresh-footer-classics:2.0.0-alpha-1'
+
+    //经典加载
+    implementation 'com.scwang.smart:refresh-header-classics:2.0.0-alpha-1'
+
+    //经典刷新头
+
+    //日历
+    implementation 'com.haibin:calendarview:3.6.7'
+
+    //换行
+    implementation 'am.widget:wraplayout:1.2.1'
+
+    //webview
+    implementation 'com.just.agentweb:agentweb:4.1.2' // (必选)
+    implementation 'com.just.agentweb:filechooser:4.1.2'// (可选)
+    implementation 'com.download.library:Downloader:4.1.2'
+
+
+}
