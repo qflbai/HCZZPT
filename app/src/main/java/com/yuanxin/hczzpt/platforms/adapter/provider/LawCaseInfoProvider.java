@@ -1,6 +1,8 @@
 package com.yuanxin.hczzpt.platforms.adapter.provider;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.provider.BaseItemProvider;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -14,6 +16,11 @@ import com.yuanxin.hczzpt.platforms.adapter.NormalMultipleEntity;
  * @description:
  */
 public class LawCaseInfoProvider extends BaseItemProvider<NormalMultipleEntity> {
+    @Override
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View inflate = LayoutInflater.from(context).inflate(R.layout.item_recycler_platforms_team_lc_info, null, false);
+        return new LawCaseInfoProvider.Holder(inflate);
+    }
     @Override
     public int getItemViewType() {
         return NormalMultipleEntity.LAW_CASE_INFO;

@@ -44,11 +44,11 @@ public class CsInfoProvider extends BaseItemProvider<NormalMultipleEntity> {
     }
 
     public static class Holder extends BaseViewHolder {
-        @BindView(R.id.tv_title)
-        TextView tvTitle;
+       // @BindView(R.id.tv_title)
+        //TextView tvTitle;
         public Holder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+         //   ButterKnife.bind(this, view);
         }
     }
 }

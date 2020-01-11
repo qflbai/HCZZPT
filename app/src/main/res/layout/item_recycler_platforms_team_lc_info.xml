@@ -25,6 +25,7 @@
         android:layout_marginTop="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_15"
         android:scaleType="centerCrop"
+        android:src="@mipmap/ic_dl_bg"
         app:layout_constraintDimensionRatio="w,2:3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

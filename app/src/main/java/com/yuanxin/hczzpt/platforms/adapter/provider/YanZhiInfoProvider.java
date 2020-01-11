@@ -15,22 +15,21 @@ import com.yuanxin.hczzpt.platforms.adapter.NormalMultipleEntity;
  * @Version: 1.0
  * @description:
  */
-public class LawCaseDetailsProvider extends BaseItemProvider<NormalMultipleEntity> {
+public class YanZhiInfoProvider extends BaseItemProvider<NormalMultipleEntity> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(context).inflate(R.layout.item_recycler_platforms_team_lc_dp, null, false);
-        return new LawCaseDetailsProvider.Holder(inflate);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.item_recycler_platforms_team_yz_info, null, false);
+        return new YanZhiInfoProvider.Holder(inflate);
     }
-    //案件详情列表
 
     @Override
     public int getItemViewType() {
-        return NormalMultipleEntity.LAW_CASE_DETAILS_ITEM;
+        return NormalMultipleEntity.YZ_INFO;
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.item_recycler_platforms_team_lc_dp;
+        return R.layout.item_recycler_platforms_team_yz_info;
     }
 
     @Override
@@ -38,8 +37,8 @@ public class LawCaseDetailsProvider extends BaseItemProvider<NormalMultipleEntit
 
     }
 
-    public static class Holder extends BaseViewHolder {
 
+    public static class Holder extends BaseViewHolder {
         public Holder(View view) {
             super(view);
         }
