@@ -1,13 +1,15 @@
-package com.yuanxin.hczzpt.home.ui.fragment;
+package com.yuanxin.hczzpt.home.ui.activity;
 
-import android.os.Bundle;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.qflbai.lib.base.fragment.BaseFragment;
+import android.os.Bundle;
+
+import com.qflbai.lib.base.activity.BaseActivity;
 import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.home.adapter.CriminalSuspectAdapter;
+import com.yuanxin.hczzpt.home.adapter.ImgAdapter;
 import com.yuanxin.hczzpt.home.adapter.PlatformsAdapter;
 import com.yuanxin.hczzpt.home.bean.CriminalSuspectInfo;
 
@@ -16,31 +18,21 @@ import java.util.List;
 
 import butterknife.BindView;
 
-/**
- * @author: qflbai
- * @CreateDate: 2020/1/8 19:40
- * @Version: 1.0
- * @description:
- */
-public class PlatformsFragment extends BaseFragment {
+public class MainCriminalSuspectDetailsActivity extends BaseActivity {
     @BindView(R.id.rv)
     RecyclerView mRv;
     private List<CriminalSuspectInfo> mCriminalSuspectInfos;
-    private PlatformsAdapter mCriminalSuspectAdapter;
+    private ImgAdapter mCriminalSuspectAdapter;
     @Override
-    protected int setContentResId() {
-        return R.layout.fragment_platforms;
-    }
-
-    @Override
-    protected void initView(Bundle state) {
-        super.initView(state);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_criminal_suspect_details);
         initRv();
     }
 
     private void initRv() {
         mCriminalSuspectInfos = new ArrayList<>();
-        mCriminalSuspectAdapter = new PlatformsAdapter(mContext, mCriminalSuspectInfos);
+        mCriminalSuspectAdapter = new ImgAdapter(mContext, mCriminalSuspectInfos);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         mRv.setLayoutManager(linearLayoutManager);

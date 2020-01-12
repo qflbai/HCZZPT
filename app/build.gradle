@@ -153,5 +153,7 @@ dependencies {
     implementation 'com.just.agentweb:filechooser:4.1.2'// (可选)
     implementation 'com.download.library:Downloader:4.1.2'
 
+    //Spinner
+    // implementation 'com.github.arcadefire:nice-spinner:1.4.4'
 
 }

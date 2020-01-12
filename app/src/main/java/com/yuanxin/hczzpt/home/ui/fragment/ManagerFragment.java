@@ -1,6 +1,8 @@
 package com.yuanxin.hczzpt.home.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import com.qflbai.lib.base.fragment.BaseFragment;
 import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.home.adapter.CriminalSuspectAdapter;
 import com.yuanxin.hczzpt.home.bean.CriminalSuspectInfo;
+import com.yuanxin.hczzpt.home.ui.activity.MainCriminalSuspectDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,5 +50,13 @@ public class ManagerFragment extends BaseFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         rv.setLayoutManager(linearLayoutManager);
         rv.setAdapter(mCriminalSuspectAdapter);
+
+        mCriminalSuspectAdapter.setOnItemClick(new CriminalSuspectAdapter.OnItemClick() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(mContext, MainCriminalSuspectDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
