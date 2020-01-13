@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.provider.BaseItemProvider;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.platforms.adapter.NormalMultipleEntity;
+import com.yuanxin.hczzpt.platforms.bean.TeamTitleInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +34,18 @@ public class TitleProvider extends BaseItemProvider<NormalMultipleEntity> {
 
     @Override
     public void convert(BaseViewHolder baseViewHolder, NormalMultipleEntity normalMultipleEntity) {
-       // Holder holder = (Holder) baseViewHolder;
-        //holder.tvTitle.setText("标题");
+        TeamTitleInfo content = (TeamTitleInfo) normalMultipleEntity.content;
+        if(content==null){
+            return;
+        }
+        String title = content.getTitle();
+        Holder holder = (Holder) baseViewHolder;
+        holder.tvTitle.setText(title);
+        if(content.isShowAdd()) {
+            holder.tvAdd.setVisibility(View.VISIBLE);
+        }else {
+            holder.tvAdd.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -46,6 +57,8 @@ public class TitleProvider extends BaseItemProvider<NormalMultipleEntity> {
     public static class Holder extends BaseViewHolder {
         @BindView(R.id.tv_title)
         TextView tvTitle;
+        @BindView(R.id.tv_add)
+        TextView tvAdd;
         public Holder(View view) {
             super(view);
             ButterKnife.bind(this, view);

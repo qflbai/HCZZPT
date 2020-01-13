@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.provider.BaseItemProvider;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.platforms.adapter.NormalMultipleEntity;
+import com.yuanxin.hczzpt.platforms.bean.FujianTimeTitleInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +34,12 @@ public class TitleFjTimeProvider extends BaseItemProvider<NormalMultipleEntity> 
 
     @Override
     public void convert(BaseViewHolder baseViewHolder, NormalMultipleEntity normalMultipleEntity) {
-        // Holder holder = (Holder) baseViewHolder;
-        //holder.tvTitle.setText("标题");
+        Holder holder = (Holder) baseViewHolder;
+        FujianTimeTitleInfo content = (FujianTimeTitleInfo) normalMultipleEntity.content;
+        if(content==null){
+            return;
+        }
+        holder.tvTitle.setText(content.getTitle());
     }
 
     @Override
@@ -44,12 +49,13 @@ public class TitleFjTimeProvider extends BaseItemProvider<NormalMultipleEntity> 
     }
 
     public static class Holder extends BaseViewHolder {
-        // @BindView(R.id.tv_title)
-        //TextView tvTitle;
-
+        @BindView(R.id.tv_title)
+        TextView tvTitle;
+        @BindView(R.id.tv_xz)
+        TextView tvXz;
         public Holder(View view) {
             super(view);
-            // ButterKnife.bind(this, view);
+            ButterKnife.bind(this, view);
         }
     }
 }

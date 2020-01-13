@@ -29,6 +29,7 @@ public class CriminalSuspectAdapter extends RecyclerView.Adapter<CriminalSuspect
     private List<CriminalSuspectInfo> data;
     private Context context;
     private OnItemClick mOnItemClick;
+    private OnItemClick mOnBjClick;
 
     public CriminalSuspectAdapter(Context context, List<CriminalSuspectInfo> data) {
         this.data = data;
@@ -47,13 +48,27 @@ public class CriminalSuspectAdapter extends RecyclerView.Adapter<CriminalSuspect
         holder.tvSee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnItemClick != null)
+                if (mOnItemClick != null) {
                     mOnItemClick.onItemClick(v, position);
+                }
+            }
+        });
+
+        holder.tvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnBjClick != null) {
+                    mOnBjClick.onItemClick(v, position);
+                }
             }
         });
     }
 
-    public void setOnItemClick(OnItemClick onItemClick) {
+    public void setOnBjClick(OnItemClick onItemClick) {
+        mOnBjClick = onItemClick;
+    }
+
+    public void setOnCkXqClick(OnItemClick onItemClick) {
         mOnItemClick = onItemClick;
     }
 
@@ -69,6 +84,8 @@ public class CriminalSuspectAdapter extends RecyclerView.Adapter<CriminalSuspect
     public static class Holder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_see)
         TextView tvSee;
+        @BindView(R.id.tv_edit)
+        TextView tvEdit;
 
         public Holder(@NonNull View itemView) {
             super(itemView);

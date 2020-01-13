@@ -1,6 +1,8 @@
 package com.yuanxin.hczzpt.home.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +12,8 @@ import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.home.adapter.CriminalSuspectAdapter;
 import com.yuanxin.hczzpt.home.adapter.PlatformsAdapter;
 import com.yuanxin.hczzpt.home.bean.CriminalSuspectInfo;
+import com.yuanxin.hczzpt.platforms.ui.activity.AddXzActivity;
+import com.yuanxin.hczzpt.platforms.ui.activity.TeamDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,5 +49,20 @@ public class PlatformsFragment extends BaseFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         mRv.setLayoutManager(linearLayoutManager);
         mRv.setAdapter(mCriminalSuspectAdapter);
+        mCriminalSuspectAdapter.setOnItemClick(new PlatformsAdapter.OnItemClick() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(mContext, TeamDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+        mCriminalSuspectAdapter.setOnBjClick(new PlatformsAdapter.OnItemClick() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(mContext, AddXzActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

@@ -3,7 +3,6 @@ package com.yuanxin.hczzpt.home.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,12 +12,12 @@ import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.home.adapter.CriminalSuspectAdapter;
 import com.yuanxin.hczzpt.home.bean.CriminalSuspectInfo;
 import com.yuanxin.hczzpt.home.ui.activity.MainCriminalSuspectDetailsActivity;
+import com.yuanxin.hczzpt.platforms.ui.activity.AddXyrActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnCheckedChanged;
 
 /**
  * @author: qflbai
@@ -51,10 +50,18 @@ public class ManagerFragment extends BaseFragment {
         rv.setLayoutManager(linearLayoutManager);
         rv.setAdapter(mCriminalSuspectAdapter);
 
-        mCriminalSuspectAdapter.setOnItemClick(new CriminalSuspectAdapter.OnItemClick() {
+        mCriminalSuspectAdapter.setOnCkXqClick(new CriminalSuspectAdapter.OnItemClick() {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(mContext, MainCriminalSuspectDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mCriminalSuspectAdapter.setOnBjClick(new CriminalSuspectAdapter.OnItemClick() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(mContext, AddXyrActivity.class);
                 startActivity(intent);
             }
         });

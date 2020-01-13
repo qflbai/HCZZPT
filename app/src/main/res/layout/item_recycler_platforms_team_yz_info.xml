@@ -73,12 +73,13 @@
         android:background="@color/_f2f2f2"
         app:layout_constraintTop_toBottomOf="@id/tv_zw" />
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_84"
         android:layout_marginLeft="@dimen/dp_15"
         android:background="@null"
         android:gravity="left"
+        android:paddingTop="@dimen/dp_8"
         android:text="这个案子所需资料如下"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/v_1" />

@@ -27,6 +27,10 @@ public class MainCriminalSuspectDetailsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_criminal_suspect_details);
+
+        initBackToolbar("嫌疑人资料");
+        getIvBack().setImageResource(R.mipmap.ic_bs_fh);
+
         initRv();
     }
 

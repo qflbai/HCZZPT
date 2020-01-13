@@ -10,8 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/LibAppTheme">
-        <activity android:name=".home.ui.activity.MainCriminalSuspectDetailsActivity"></activity>
-        <activity android:name=".platforms.TeamDetailsActivity" />
+        <activity android:name=".platforms.ui.activity.AddXzActivity"></activity>
+        <activity android:name=".platforms.ui.activity.AddXyrActivity" />
+        <activity android:name=".home.ui.activity.MainCriminalSuspectDetailsActivity" />
+        <activity android:name=".platforms.ui.activity.TeamDetailsActivity" />
         <activity android:name=".home.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

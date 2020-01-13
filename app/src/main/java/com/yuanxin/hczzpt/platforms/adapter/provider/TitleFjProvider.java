@@ -33,8 +33,8 @@ public class TitleFjProvider extends BaseItemProvider<NormalMultipleEntity> {
 
     @Override
     public void convert(BaseViewHolder baseViewHolder, NormalMultipleEntity normalMultipleEntity) {
-       // Holder holder = (Holder) baseViewHolder;
-        //holder.tvTitle.setText("标题");
+        Holder holder = (Holder) baseViewHolder;
+        holder.tvTitle.setText("附件");
     }
 
     @Override
@@ -44,11 +44,13 @@ public class TitleFjProvider extends BaseItemProvider<NormalMultipleEntity> {
     }
 
     public static class Holder extends BaseViewHolder {
-       // @BindView(R.id.tv_title)
-       // TextView tvTitle;
+        @BindView(R.id.tv_title)
+        TextView tvTitle;
+        @BindView(R.id.tv_xz)
+        TextView tvXz;
         public Holder(View view) {
             super(view);
-          //  ButterKnife.bind(this, view);
+            ButterKnife.bind(this, view);
         }
     }
 }
