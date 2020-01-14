@@ -25,26 +25,31 @@ import butterknife.ButterKnife;
  * @Version: 1.0
  * @description:
  */
-public class CriminalSuspectAdapter extends RecyclerView.Adapter<CriminalSuspectAdapter.Holder> {
+public class CriminalSuspectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<CriminalSuspectInfo> data;
     private Context context;
     private OnItemClick mOnItemClick;
     private OnItemClick mOnBjClick;
+    private OnItemClick mOnDeleteClick;
+
 
     public CriminalSuspectAdapter(Context context, List<CriminalSuspectInfo> data) {
         this.data = data;
         this.context = context;
     }
 
+
     @NonNull
     @Override
-    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.item_recycler_criminal_suspect, parent, false);
         return new Holder(inflate);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+
+        Holder holder = (Holder) viewHolder;
         holder.tvSee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +67,20 @@ public class CriminalSuspectAdapter extends RecyclerView.Adapter<CriminalSuspect
                 }
             }
         });
+
+        holder.tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnDeleteClick != null) {
+                    mOnDeleteClick.onItemClick(v, position);
+                }
+            }
+        });
+
+    }
+
+    public void setOnDeleteClick(OnItemClick onItemClick) {
+        mOnDeleteClick = onItemClick;
     }
 
     public void setOnBjClick(OnItemClick onItemClick) {
@@ -86,10 +105,14 @@ public class CriminalSuspectAdapter extends RecyclerView.Adapter<CriminalSuspect
         TextView tvSee;
         @BindView(R.id.tv_edit)
         TextView tvEdit;
+        @BindView(R.id.tv_delete)
+        TextView tvDelete;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
+
+
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0089E4</color>
+    <color name="colorPrimary" >#0089E4</color>
     <color name="colorPrimaryDark">#0068DE</color>
     <color name="colorAccent">#0089E4</color>
+    <color name="toolbarBg">#0089E4</color>
+    <color name="toolBarTitle">#ffffff</color>
     <color name="_191919">#191919</color>
     <color name="_f2f2f2">#f2f2f2</color>
     <color name="_333333">#333333</color>

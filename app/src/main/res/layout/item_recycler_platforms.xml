@@ -180,7 +180,7 @@
         android:layout_marginRight="@dimen/dp_17"
         android:background="@drawable/shape_corners_0089e4"
         android:clickable="true"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:foreground="?attr/selectableItemBackground"
         android:paddingLeft="@dimen/dp_25"
         android:paddingTop="@dimen/dp_2"
         android:paddingRight="@dimen/dp_25"

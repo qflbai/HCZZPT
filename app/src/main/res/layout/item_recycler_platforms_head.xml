@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/colorAccent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    >
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/nice_xz"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginRight="@dimen/dp_3"
+            android:background="@color/white"
+            android:hint="案件性质选择"
+            android:textColor="@color/_999999"
+            android:textSize="@dimen/sp_14"
+            app:arrowDrawable="@mipmap/ic_xia_la"
+            app:layout_constraintBottom_toBottomOf="@id/rl_1"
+            app:layout_constraintEnd_toStartOf="@id/rl_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/rl_1"
+            app:textPadingLeft="@dimen/dp_15"
+            app:textTint="@color/_999999" />
+
+        <RelativeLayout
+            android:id="@+id/rl_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/nice_xz"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginBottom="@dimen/dp_15"
+                android:layout_toLeftOf="@id/iv_time"
+                android:hint="创建时间"
+                android:textColor="@color/_999999"
+                android:textSize="@dimen/sp_14" />
+
+            <ImageView
+                android:id="@+id/iv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:paddingLeft="@dimen/dp_7"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_7"
+                android:paddingBottom="@dimen/dp_10"
+                android:src="@mipmap/ic_xia_la" />
+        </RelativeLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_15"
+        android:text="分类标签"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_14" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_17"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_type_dx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_corners_stroke_coloraccent"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="对象人员"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_type_sd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:background="@drawable/shape_corners_stroke_white"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="涉毒人员"
+            android:textColor="@color/colorAccent" />
+
+    </LinearLayout>
+</LinearLayout>

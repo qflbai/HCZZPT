@@ -22,6 +22,7 @@
         android:background="@color/_003A7C"
         android:gravity="center"
         android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ll_pt"
@@ -51,6 +52,7 @@
         android:background="@color/_0068DE"
         android:gravity="center"
         android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ll_gl">

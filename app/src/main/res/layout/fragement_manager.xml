@@ -23,10 +23,18 @@
             android:src="@mipmap/ic_search" />
 
         <EditText
+            android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
-            android:background="@null" />
+            android:textSize="@dimen/sp_14"
+            android:background="@null"
+            android:hint="可搜索嫌疑人ID/嫌疑人姓名/嫌疑人身份证号"
+            android:singleLine="true"
+            android:paddingRight="@dimen/dp_5"
+            android:imeOptions="actionSearch"
+            android:textColor="@color/_999999"
+            />
 
 
     </LinearLayout>

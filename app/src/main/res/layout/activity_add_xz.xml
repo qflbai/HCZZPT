@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".platforms.ui.activity.AddXzActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="@dimen/dp_15"
@@ -86,10 +86,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_ba_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_15"
-
                     android:layout_toLeftOf="@id/iv_ba_time"
                     android:background="@null"
                     android:gravity="right"
@@ -138,10 +138,10 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_af_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_15"
-
                     android:layout_toLeftOf="@id/iv_af_time"
                     android:background="@null"
                     android:gravity="right"
@@ -235,20 +235,21 @@
                 android:textColor="@color/_6E6E6E"
                 app:layout_constraintTop_toBottomOf="@id/v_4" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv"
+            <com.qflbai.lib.ui.widget.image.ImageBox
+                android:id="@+id/ib"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_15"
-                android:maxHeight="@dimen/dp_150"
-                app:layout_constraintTop_toBottomOf="@id/et_ajnx" />
+                app:layout_constraintTop_toBottomOf="@id/et_ajnx"
+                app:zib_img_size_one_line="4"
+                app:zib_max_line="4" />
 
             <RelativeLayout
                 android:id="@+id/rl_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/_F2F2F2"
-                app:layout_constraintTop_toBottomOf="@id/rv">
+                app:layout_constraintTop_toBottomOf="@id/ib">
 
 
                 <TextView
@@ -269,6 +270,7 @@
                     android:layout_marginRight="@dimen/dp_10"
                     android:background="@drawable/shape_corners_0089e4_16"
                     android:drawableLeft="@mipmap/ic_tian_jia"
+                    android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:paddingLeft="@dimen/dp_11"
                     android:paddingTop="@dimen/dp_4"
@@ -290,7 +292,7 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 
     <LinearLayout

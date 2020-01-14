@@ -1,5 +1,7 @@
 package com.yuanxin.hczzpt;
 
+import com.luck.picture.lib.app.PictureAppMaster;
+import com.luck.picture.lib.crash.PictureSelectorCrashUtils;
 import com.qflbai.lib.base.BaseApplication;
 
 /**
@@ -9,4 +11,10 @@ import com.qflbai.lib.base.BaseApplication;
  * @description:
  */
 public class App extends BaseApplication {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+
+    }
 }

@@ -7,4 +7,5 @@ package com.yuanxin.hczzpt.home.bean;
  * @description:
  */
 public class CriminalSuspectInfo {
+    private int viewType;
 }

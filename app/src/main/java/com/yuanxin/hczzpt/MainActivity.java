@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -35,14 +36,23 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        if (managerFragment == null) {
-            managerFragment = new ManagerFragment();
-        }
-        fragmentTransaction.replace(R.id.rl, managerFragment);
-        fragmentTransaction.commit();
+        if (savedInstanceState != null) {
+            managerFragment = (ManagerFragment) getSupportFragmentManager().findFragmentByTag(ManagerFragment.class.getName());
+            platformsFragment = (PlatformsFragment) getSupportFragmentManager().findFragmentByTag(PlatformsFragment.class.getName());
+            getSupportFragmentManager().beginTransaction()
+                    .show(managerFragment)
+                    .hide(platformsFragment)
+                    .commit();
+        } else {
 
+            managerFragment = new ManagerFragment();
+            platformsFragment = new PlatformsFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.rl, managerFragment, ManagerFragment.class.getName())
+                    .add(R.id.rl, platformsFragment, PlatformsFragment.class.getName())
+                    .hide(platformsFragment)
+                    .commit();
+        }
         tvSubtitleTitle = getTvSubtitleTitle();
         tvSubtitleTitle.setText("添加协作");
         tvSubtitleTitle.setVisibility(View.GONE);
@@ -92,24 +102,23 @@ public class MainActivity extends BaseActivity {
         if (v.getId() == R.id.ll_gl) {
             setDhBg(true, mLLgl);
             setDhBg(false, mLLpt);
-
-            if (managerFragment == null) {
-                managerFragment = new ManagerFragment();
-            }
             setToolbarTitle("嫌疑人管理");
             tvSubtitleTitle.setVisibility(View.GONE);
-            fragmentTransaction.replace(R.id.rl, managerFragment);
+
+            fragmentTransaction.show(managerFragment);
+            fragmentTransaction.hide(platformsFragment);
             fragmentTransaction.commit();
+
+
         } else {
             setDhBg(false, mLLgl);
             setDhBg(true, mLLpt);
-            if (platformsFragment == null) {
-                platformsFragment = new PlatformsFragment();
-            }
             setToolbarTitle("案件协作平台");
             tvSubtitleTitle.setVisibility(View.VISIBLE);
-            fragmentTransaction.replace(R.id.rl, platformsFragment);
+            fragmentTransaction.show(platformsFragment);
+            fragmentTransaction.hide(managerFragment);
             fragmentTransaction.commit();
+
         }
     }
 

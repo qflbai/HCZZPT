@@ -111,6 +111,7 @@
                 android:layout_marginRight="@dimen/dp_43"
                 android:layout_marginBottom="@dimen/dp_19"
                 android:background="@color/_0088e3"
+                android:foreground="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:gravity="center_horizontal"
                 android:paddingTop="@dimen/dp_10"
