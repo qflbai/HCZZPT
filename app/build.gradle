@@ -125,9 +125,9 @@ dependencies {
     //相机库
     //implementation 'com.github.tamsiree.RxTool:RxCamera:v2.4.1'
     //UI库
-    implementation 'com.github.tamsiree.RxTool:RxUI:v2.4.1'
+    //implementation 'com.github.tamsiree.RxTool:RxUI:v2.4.1'
     //(依赖RxUI库时，需要额外依赖 cardview 库)
-    implementation 'androidx.cardview:cardview:1.0.0'
+   // implementation 'androidx.cardview:cardview:1.0.0'
 
     //小红点 1.1.8
     /*implementation 'cn.bingoogolapple:bga-badgeview-api:1.1.8'
@@ -156,4 +156,7 @@ dependencies {
 
     // 选择图片
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.4.3'
+
+    //dialog
+    implementation 'com.lxj:xpopup:1.8.10-x'
 }

@@ -14,6 +14,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qflbai.lib.base.activity.BaseActivity;
+import com.qflbai.lib.ui.widget.image.ImageBox;
 import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.event.EventAction;
 import com.yuanxin.hczzpt.event.EventMessage;
@@ -31,9 +32,13 @@ public class AddXyrActivity extends BaseActivity {
 
     @BindView(R.id.iv_tx)
     ImageView ivTx;
+    @BindView(R.id.ib)
+    ImageBox mIb;
+
     private int action;
     private String title;
     private List<LocalMedia> selectList;
+    private int actionClick;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +46,55 @@ public class AddXyrActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         setContentView(R.layout.activity_add_xyr);
 
+
         if (title != null) {
             initBackToolbar(title);
         } else {
             initBackToolbar("添加嫌疑人");
         }
         getIvBack().setImageResource(R.mipmap.ic_bs_fh);
-
+        initIb();
     }
+
+    private void initIb() {
+        mIb.setOnlineImageLoader(new ImageBox.OnlineImageLoader() {
+            @Override
+            public void onLoadImage(ImageView iv, String url) {
+                Glide.with(mContext).load(url).into(iv);
+            }
+        });
+        mIb.setOnImageClickListener(new ImageBox.OnImageClickListener() {
+            @Override
+            public void onImageClick(int position, String filePath, String tag, int type, ImageView iv) {
+
+            }
+
+            @Override
+            public void onDeleteClick(int position, String filePath, String tag, int type) {
+                //移除position位置的图片
+                mIb.removeImage(position);
+            }
+
+            @Override
+            public void onAddClick() {
+                actionClick = 1;
+                PictureSelector.create(AddXyrActivity.this)
+                        .themeStyle(R.style.picture_default_style) // xml设置主题
+                        //.setPictureStyle(mPictureParameterStyle)// 动态自定义相册主题
+                        //.setPictureWindowAnimationStyle(animationStyle)// 自定义页面启动动画
+                        .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)// 设置相册Activity方向，不设置默认使用系统
+                        .isNotPreviewDownload(false)// 预览图片长按是否可以下载
+                        .loadImageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
+                        .selectionMode(PictureConfig.SINGLE)
+                        .enableCrop(true)// 是否裁剪
+                        .freeStyleCropEnabled(true)// 裁剪框是否可拖拽
+                        .isDragFrame(true)
+                        .showCropGrid(false)// 是否显示裁剪矩形网格 圆形裁剪时建议设为false
+                        .forResult(PictureConfig.CHOOSE_REQUEST);
+            }
+        });
+    }
+
 
     @Subscribe(sticky = true)
     public void getEventMessage(EventMessage eventMessage) {
@@ -59,6 +105,7 @@ public class AddXyrActivity extends BaseActivity {
 
     @OnClick(R.id.iv_tx)
     public void chooseImage() {
+        actionClick = 0;
         PictureSelector.create(AddXyrActivity.this)
                 .themeStyle(R.style.picture_default_style) // xml设置主题
                 //.setPictureStyle(mPictureParameterStyle)// 动态自定义相册主题
@@ -81,6 +128,7 @@ public class AddXyrActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case PictureConfig.CHOOSE_REQUEST:
+
                     // 图片选择结果回调
                     selectList = PictureSelector.obtainMultipleResult(data);
                     // 例如 LocalMedia 里面返回五种path
@@ -92,10 +140,13 @@ public class AddXyrActivity extends BaseActivity {
                     // 如果同时开启裁剪和压缩，则取压缩路径为准因为是先裁剪后压缩
                     for (LocalMedia media : selectList) {
                         String cutPath = media.getCutPath();
-
-                        Glide.with(mContext)
-                                .load(cutPath)
-                                .into(ivTx);
+                        if(actionClick==0) {
+                            Glide.with(mContext)
+                                    .load(cutPath)
+                                    .into(ivTx);
+                        }else {
+                            mIb.addImage(cutPath);
+                        }
                     }
                     break;
             }

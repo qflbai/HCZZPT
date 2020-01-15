@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.OnCancelListener;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.qflbai.lib.base.activity.BaseActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.vondear.rxui.view.dialog.RxDialogSureCancel;
 import com.yuanxin.hczzpt.MainActivity;
 import com.yuanxin.hczzpt.R;
 
@@ -56,6 +59,7 @@ public class LoginActivity extends BaseActivity {
     /**
      * 权限申请
      */
+    @SuppressLint("CheckResult")
     private void applyForPermissions() {
         RxPermissions rxPermissions = new RxPermissions(this);
         rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -67,26 +71,23 @@ public class LoginActivity extends BaseActivity {
                             //申请的权限全部允许
                             initData();
                         } else {
-                            //只要有一个权限被拒绝，就会执行
-                            // AlertDialog alertDialog = new AlertDialog.Builder(mContext).setTitle("温馨提示");
-                            RxDialogSureCancel rxDialog = new RxDialogSureCancel(mContext);
-                            rxDialog.setTitle("温馨提示");
-                            rxDialog.setContent("使用该APP，你需要授权!");
-                            rxDialog.setSureListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    rxDialog.dismiss();
-                                    applyForPermissions();
-                                }
-                            });
-                            rxDialog.setCancelListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    finish();
-                                }
-                            });
-                            rxDialog.setCanceledOnTouchOutside(false);
-                            rxDialog.show();
+
+                            new XPopup.Builder(mContext)
+                                    .asConfirm("温馨提示", "使用该APP，你需要授权!","取消","确定",
+                                            new OnConfirmListener() {
+                                                @Override
+                                                public void onConfirm() {
+                                                    applyForPermissions();
+                                                }
+                                            }, new OnCancelListener() {
+                                                @Override
+                                                public void onCancel() {
+
+                                                }
+                                            }, false)
+                                    .bindLayout(R.layout.dialog_sure_false) //绑定已有布局
+                                    .show();
+
                         }
                     }
                 });

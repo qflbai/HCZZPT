@@ -19,6 +19,7 @@ import com.yuanxin.hczzpt.home.bean.CriminalSuspectInfo;
 import com.yuanxin.hczzpt.time.TimePickerUtil;
 
 import org.angmarch.views.NiceSpinner;
+import org.angmarch.views.NiceSpinnerPro;
 import org.angmarch.views.OnSpinnerItemSelectedListener;
 
 import java.text.SimpleDateFormat;
@@ -29,7 +30,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * @author: qflbai
@@ -96,12 +96,12 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             holder.tvDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mOnDeleteClick!=null){
-                        mOnDeleteClick.onItemClick(v,position);
+                    if (mOnDeleteClick != null) {
+                        mOnDeleteClick.onItemClick(v, position);
                     }
                 }
             });
-        }else {
+        } else {
             HeaderHolder headerHolder = (HeaderHolder) viewHolder;
             headerHolder.ivTime.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -115,16 +115,16 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             headerHolder.tvTypeDx.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setBg(true,headerHolder.tvTypeDx);
-                    setBg(false,headerHolder.tvTypeSd);
+                    setBg(true, headerHolder.tvTypeDx);
+                    setBg(false, headerHolder.tvTypeSd);
                 }
             });
 
             headerHolder.tvTypeSd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setBg(true,headerHolder.tvTypeSd);
-                    setBg(false,headerHolder.tvTypeDx);
+                    setBg(true, headerHolder.tvTypeSd);
+                    setBg(false, headerHolder.tvTypeDx);
                 }
             });
         }
@@ -148,31 +148,37 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         pvTime.show();
     }
 
-    private void setBg(boolean isSelect ,TextView view){
-        if(isSelect){
+    private void setBg(boolean isSelect, TextView view) {
+        if (isSelect) {
             view.setTextColor(context.getResources().getColor(R.color.white));
             view.setBackground(context.getResources().getDrawable(R.drawable.shape_corners_stroke_coloraccent));
-        }else {
+        } else {
             view.setTextColor(context.getResources().getColor(R.color.colorAccent));
             view.setBackground(context.getResources().getDrawable(R.drawable.shape_corners_stroke_white));
         }
     }
 
-    public String spinnerStr = "案件性质选择";
-    public String spinerSlelet="";
-    private void initSpinner(NiceSpinner niceSpinner) {
+    public String spinerSlelet ;
+
+    private void initSpinner(NiceSpinnerPro niceSpinner) {
 
         List<String> dataset = new LinkedList<>(Arrays.asList("One", "Two", "Three", "Four", "Five"));
         niceSpinner.attachDataSource(dataset);
         niceSpinner.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
-                spinnerStr = dataset.get(position);
                 spinerSlelet = dataset.get(position);
+            }
+
+            @Override
+            public void onItemSelected(View view, int i, long l) {
+
             }
         });
 
-        niceSpinner.setText(spinnerStr);
+        if(spinerSlelet!=null) {
+            niceSpinner.setText(spinerSlelet);
+        }
     }
 
     public void setOnDeleteClick(CriminalSuspectAdapter.OnItemClick onItemClick) {
@@ -204,6 +210,22 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView tvEdit;
         @BindView(R.id.tv_delete)
         TextView tvDelete;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+        @BindView(R.id.tv_cph)
+        TextView tvCph;
+        @BindView(R.id.tv_sjh)
+        TextView tvSjh;
+        @BindView(R.id.tv_cardid)
+        TextView tvCardid;
+        @BindView(R.id.tv_state)
+        TextView tvState;
+        @BindView(R.id.tv_xzfl)
+        TextView tvXzfl;
+        @BindView(R.id.tv_time)
+        TextView tvTime;
+
+
         public Holder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -212,7 +234,7 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public static class HeaderHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.nice_xz)
-        NiceSpinner mSpinner;
+        NiceSpinnerPro mSpinner;
         @BindView(R.id.tv_time)
         TextView tvTime;
         @BindView(R.id.tv_type_dx)
@@ -221,6 +243,7 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView tvTypeSd;
         @BindView(R.id.iv_time)
         ImageView ivTime;
+
         public HeaderHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

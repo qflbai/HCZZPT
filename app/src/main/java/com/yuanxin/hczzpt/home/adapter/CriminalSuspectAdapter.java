@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.home.bean.CriminalSuspectInfo;
-import com.yuanxin.hczzpt.home.ui.fragment.ManagerFragment;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +24,7 @@ import butterknife.ButterKnife;
  * @description:
  */
 public class CriminalSuspectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
     private List<CriminalSuspectInfo> data;
     private Context context;
     private OnItemClick mOnItemClick;
@@ -107,6 +106,16 @@ public class CriminalSuspectAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         TextView tvEdit;
         @BindView(R.id.tv_delete)
         TextView tvDelete;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+        @BindView(R.id.tv_wxh)
+        TextView tvWxh;
+        @BindView(R.id.tv_cardid)
+        TextView tvCardid;
+        @BindView(R.id.criminal_id)
+        TextView criminalId;
+        @BindView(R.id.tv_gzr)
+        TextView tvGzr;
 
         public Holder(@NonNull View itemView) {
             super(itemView);

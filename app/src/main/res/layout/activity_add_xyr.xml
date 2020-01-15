@@ -356,6 +356,7 @@
                     android:paddingTop="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_15"
                     android:paddingBottom="@dimen/dp_10"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@mipmap/ic_you_jt" />
             </RelativeLayout>
 
@@ -408,6 +409,7 @@
                     android:paddingTop="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_15"
                     android:paddingBottom="@dimen/dp_10"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@mipmap/ic_you_jt" />
             </RelativeLayout>
 
@@ -447,14 +449,16 @@
                 android:textColor="@color/_6E6E6E"
                 app:layout_constraintTop_toBottomOf="@id/v_9" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv"
+
+            <com.qflbai.lib.ui.widget.image.ImageBox
+                android:id="@+id/ib"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp_15"
                 app:layout_constraintTop_toBottomOf="@id/et_bz"
-
-                />
+                app:zib_img_size_one_line="4"
+                android:nestedScrollingEnabled="false"
+                app:zib_max_line="4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -473,5 +477,6 @@
         android:text="提交"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_18"
+        android:foreground="?attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
