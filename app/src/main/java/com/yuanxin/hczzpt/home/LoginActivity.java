@@ -12,18 +12,31 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.interfaces.OnCancelListener;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.qflbai.lib.base.activity.BaseActivity;
+import com.qflbai.lib.net.RetrofitManage;
+import com.qflbai.lib.net.body.ServerResponseResult;
+import com.qflbai.lib.net.callback.NetCallback;
+import com.qflbai.lib.net.rxjava.NetObserver;
+import com.qflbai.lib.utils.toast.ToastUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.yuanxin.hczzpt.MainActivity;
 import com.yuanxin.hczzpt.R;
+import com.yuanxin.hczzpt.constant.NetApi;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 public class LoginActivity extends BaseActivity {
     @BindView(R.id.root)
@@ -105,5 +118,38 @@ public class LoginActivity extends BaseActivity {
     public void login(){
         Intent intent = new Intent(mContext, MainActivity.class);
         startActivity(intent);
+
+        String path = "";//NetApi.Path.login;
+        Map<String, Object> map = new HashMap<>();
+
+        showDialogLoading();
+        RetrofitManage.newInstance().createService()
+                .postFormNet(path, map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new NetObserver(new NetCallback() {
+                    @Override
+                    public void onResponse(String s) {
+                        hideDialogLoading();
+                        ServerResponseResult serverResponseResult = JSON.parseObject(s, ServerResponseResult.class);
+                        if (serverResponseResult.isSucceed()) {
+                            Object data = serverResponseResult.getData();
+                            Intent intent = new Intent(mContext, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            ToastUtil.showCenter(mContext, serverResponseResult.getMsg());
+                        }
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable disposable) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        hideDialogLoading();
+                    }
+                }));
     }
 }
