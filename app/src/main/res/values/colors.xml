@@ -5,6 +5,7 @@
     <color name="colorAccent">#0089E4</color>
     <color name="toolbarBg">#0089E4</color>
     <color name="toolBarTitle">#ffffff</color>
+    <color name="lfile_defaultColor">#0089E4</color>
     <color name="_191919">#191919</color>
     <color name="_f2f2f2">#f2f2f2</color>
     <color name="_333333">#333333</color>
@@ -26,4 +27,6 @@
     <color name="_E1E1E1">#E1E1E1</color>
     <color name="_6E6E6E">#6E6E6E</color>
     <color name="_FF4949">#FF4949</color>
+    <color name="_ACACAC">#ACACAC</color>
+
 </resources>

@@ -23,7 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_6"
-        android:text="李宏源"
+        android:maxWidth="@dimen/dp_75"
+        android:text=""
         android:textColor="@color/black"
         android:textSize="@dimen/sp_16"
         app:layout_constraintStart_toStartOf="@id/tv_1"
@@ -34,7 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_32"
-        android:text="微信号"
+        android:text="网络号"
+        android:textSize="@dimen/sp_14"
         android:textColor="@color/_919191"
         app:layout_constraintStart_toEndOf="@id/tv_name"
         app:layout_constraintTop_toTopOf="@id/tv_1" />
@@ -44,11 +46,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_6"
-        android:text="hhhhhhh"
+        android:maxWidth="@dimen/dp_75"
+        android:text="hhhhhhhdddddddddddddddddddd"
         android:textColor="@color/black"
         android:textSize="@dimen/sp_16"
         app:layout_constraintStart_toStartOf="@id/tv_2"
-        app:layout_constraintTop_toBottomOf="@id/tv_2" />
+        app:layout_constraintTop_toBottomOf="@id/tv_2"
+      />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="tv_wxh,tv_name"
+        />
 
     <TextView
         android:id="@+id/tv_3"
@@ -59,20 +71,20 @@
         android:textColor="@color/_919191"
         android:textSize="@dimen/sp_14"
         app:layout_constraintStart_toStartOf="@id/tv_1"
-        app:layout_constraintTop_toBottomOf="@id/tv_name" />
+        app:layout_constraintTop_toTopOf="@id/barrier1"
+      />
 
     <TextView
         android:id="@+id/tv_cardid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_6"
+        android:paddingBottom="@dimen/dp_16"
         android:text="530126951245302562"
         android:textColor="@color/black"
         android:textSize="@dimen/sp_16"
         app:layout_constraintStart_toStartOf="@id/tv_3"
-        app:layout_constraintTop_toBottomOf="@id/tv_3"
-        android:paddingBottom="@dimen/dp_16"
-        />
+        app:layout_constraintTop_toBottomOf="@id/tv_3" />
 
     <LinearLayout
         android:id="@+id/ll_1"
@@ -167,6 +179,7 @@
         android:text="编辑"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_14"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_see"
         app:layout_constraintTop_toBottomOf="@id/v_1" />
@@ -183,6 +196,7 @@
         android:text="删除"
         android:textColor="@color/_FF5858"
         android:textSize="@dimen/sp_14"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/v_1" />

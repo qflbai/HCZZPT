@@ -1,6 +1,8 @@
 package com.yuanxin.hczzpt.home.adapter;
 
 import android.content.Context;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +17,18 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.yuanxin.hczzpt.R;
+import com.yuanxin.hczzpt.home.bean.AjInfo;
 import com.yuanxin.hczzpt.home.bean.CriminalSuspectInfo;
 import com.yuanxin.hczzpt.time.TimePickerUtil;
 
 import org.angmarch.views.NiceSpinner;
 import org.angmarch.views.NiceSpinnerPro;
 import org.angmarch.views.OnSpinnerItemSelectedListener;
+import org.angmarch.views.SimpleSpinnerTextFormatter;
+import org.angmarch.views.SpinnerTextFormatter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
@@ -38,15 +44,18 @@ import butterknife.ButterKnife;
  * @description:
  */
 public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<CriminalSuspectInfo> data;
+    private List<AjInfo.DataBean.ListBean> data;
     private Context context;
     private OnItemClick mOnItemClick;
     private OnItemClick mOnBjClick;
     public static final int view_type_0 = 0;
     public static final int view_type_1 = 1;
     private CriminalSuspectAdapter.OnItemClick mOnDeleteClick;
+    private OnItemSelectClick mOnAjXz;
+    private OnItemSelectClick onTimeClick;
+    private OnItemSelectClick onItemFlBq;
 
-    public PlatformsAdapter(Context context, List<CriminalSuspectInfo> data) {
+    public PlatformsAdapter(Context context, List<AjInfo.DataBean.ListBean> data) {
         this.data = data;
         this.context = context;
     }
@@ -63,7 +72,7 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == view_type_1) {
-            View inflate = LayoutInflater.from(context).inflate(R.layout.item_recycler_platforms, parent, false);
+            View inflate = LayoutInflater.from(context).inflate(R.layout.item_recycler_platforms_1, parent, false);
             return new Holder(inflate);
         } else {
             View inflate = LayoutInflater.from(context).inflate(R.layout.item_recycler_platforms_head, parent, false);
@@ -101,6 +110,23 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 }
             });
+
+            AjInfo.DataBean.ListBean listBean = data.get(position - 1);
+
+            holder.tvName.setText(listBean.getCase_name());
+            holder.tvSjh.setText(listBean.getCreated_man());
+            holder.tvCardid.setText(listBean.getReported_time());
+            String case_state = listBean.getCase_state();
+            if("10".equals(case_state)){
+                case_state = "进行中";
+            }else if("11".equals(case_state)){
+                case_state = "行动中";
+            }else if("20".equals(case_state)){
+                case_state = "结案";
+            }
+            holder.tvState.setText(case_state);
+            holder.tvXzfl.setText(listBean.getCase_type());
+            holder.tvTime.setText(listBean.getCreated_time() + " 创建");
         } else {
             HeaderHolder headerHolder = (HeaderHolder) viewHolder;
             headerHolder.ivTime.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +143,11 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 public void onClick(View v) {
                     setBg(true, headerHolder.tvTypeDx);
                     setBg(false, headerHolder.tvTypeSd);
+                    setBg(false, headerHolder.tvWw);
+                    setBg(false, headerHolder.tvTypeXyr);
+                    setBg(false, headerHolder.tvTypeQt);
+
+                    onItemFlBq.onItemClick("dui");
                 }
             });
 
@@ -125,6 +156,48 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 public void onClick(View v) {
                     setBg(true, headerHolder.tvTypeSd);
                     setBg(false, headerHolder.tvTypeDx);
+                    setBg(false, headerHolder.tvWw);
+                    setBg(false, headerHolder.tvTypeXyr);
+                    setBg(false, headerHolder.tvTypeQt);
+                    onItemFlBq.onItemClick("du");
+                }
+            });
+
+            headerHolder.tvWw.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemFlBq.onItemClick("wen");
+
+                    setBg(false, headerHolder.tvTypeSd);
+                    setBg(false, headerHolder.tvTypeDx);
+                    setBg(true, headerHolder.tvWw);
+                    setBg(false, headerHolder.tvTypeXyr);
+                    setBg(false, headerHolder.tvTypeQt);
+                }
+            });
+
+            headerHolder.tvTypeXyr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemFlBq.onItemClick("man");
+
+                    setBg(false, headerHolder.tvTypeSd);
+                    setBg(false, headerHolder.tvTypeDx);
+                    setBg(false, headerHolder.tvWw);
+                    setBg(true, headerHolder.tvTypeXyr);
+                    setBg(false, headerHolder.tvTypeQt);
+                }
+            });
+
+            headerHolder.tvTypeQt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemFlBq.onItemClick("otd");
+                    setBg(false, headerHolder.tvTypeSd);
+                    setBg(false, headerHolder.tvTypeDx);
+                    setBg(false, headerHolder.tvWw);
+                    setBg(false, headerHolder.tvTypeXyr);
+                    setBg(true, headerHolder.tvTypeQt);
                 }
             });
         }
@@ -139,6 +212,9 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             public void onTimeSelect(Date date, View v) {
                 mTime = simpleDateFormat.format(date);
                 tvTime.setText(mTime);
+                if (onTimeClick != null) {
+                    onTimeClick.onItemClick(mTime);
+                }
             }
         });
 
@@ -158,31 +234,65 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public String spinerSlelet ;
+    public String spinerSlelet;
+    List<AjInfo.DataBean.CaseTypeBean> dataset = new ArrayList<>();
+
+    public void setSpinnerData(List<AjInfo.DataBean.CaseTypeBean> data) {
+        dataset.clear();
+        dataset.addAll(data);
+    }
 
     private void initSpinner(NiceSpinnerPro niceSpinner) {
-
-        List<String> dataset = new LinkedList<>(Arrays.asList("One", "Two", "Three", "Four", "Five"));
+        niceSpinner.setSelectedTextFormatter(new SimpleSpinnerTextFormatter(){
+            @Override
+            public Spannable format(Object item) {
+                AjInfo.DataBean.CaseTypeBean item1 = (AjInfo.DataBean.CaseTypeBean) item;
+                return new SpannableString(item1.getName()) ;
+            }
+        });
+        niceSpinner.setSpinnerTextFormatter(new SpinnerTextFormatter() {
+            @Override
+            public Spannable format(Object o) {
+                AjInfo.DataBean.CaseTypeBean item1 = (AjInfo.DataBean.CaseTypeBean) o;
+                return new SpannableString(item1.getName()) ;
+            }
+        });
         niceSpinner.attachDataSource(dataset);
         niceSpinner.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener() {
             @Override
             public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
-                spinerSlelet = dataset.get(position);
+
             }
 
             @Override
             public void onItemSelected(View view, int i, long l) {
-
+                AjInfo.DataBean.CaseTypeBean caseTypeBean = dataset.get(i);
+                spinerSlelet = caseTypeBean.getName();
+                if (mOnAjXz != null) {
+                    mOnAjXz.onItemClick(caseTypeBean.getId()+"");
+                }
             }
         });
 
-        if(spinerSlelet!=null) {
+        if (spinerSlelet != null) {
             niceSpinner.setText(spinerSlelet);
         }
     }
 
+    public void setOnItemFlBq(OnItemSelectClick selectClick){
+        onItemFlBq = selectClick;
+    }
+
     public void setOnDeleteClick(CriminalSuspectAdapter.OnItemClick onItemClick) {
         mOnDeleteClick = onItemClick;
+    }
+
+    public void setOnTimeClick(OnItemSelectClick onItemClick) {
+        onTimeClick = onItemClick;
+    }
+
+    public void setOnAjXzClick(OnItemSelectClick onItemClick) {
+        mOnAjXz = onItemClick;
     }
 
     public void setOnBjClick(OnItemClick onItemClick) {
@@ -198,9 +308,13 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         void onItemClick(View view, int position);
     }
 
+    public interface OnItemSelectClick {
+        void onItemClick(String value);
+    }
+
     @Override
     public int getItemCount() {
-        return data.size() <= 0 ? 100 : data.size();
+        return data.size() + 1;
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
@@ -243,6 +357,12 @@ public class PlatformsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView tvTypeSd;
         @BindView(R.id.iv_time)
         ImageView ivTime;
+        @BindView(R.id.tv_type_ww)
+        TextView tvWw;
+        @BindView(R.id.tv_type_xyr)
+        TextView tvTypeXyr;
+        @BindView(R.id.tv_type_xt)
+        TextView tvTypeQt;
 
         public HeaderHolder(@NonNull View itemView) {
             super(itemView);

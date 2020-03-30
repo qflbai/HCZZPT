@@ -1,14 +1,18 @@
 package com.yuanxin.hczzpt.platforms.adapter.provider;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.provider.BaseItemProvider;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.platforms.adapter.NormalMultipleEntity;
+import com.yuanxin.hczzpt.platforms.bean.AjNxInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +37,32 @@ public class FuJianImgProvider extends BaseItemProvider<NormalMultipleEntity> {
 
     @Override
     public void convert(BaseViewHolder baseViewHolder, NormalMultipleEntity normalMultipleEntity) {
-       // Holder holder = (Holder) baseViewHolder;
-        //holder.tvTitle.setText("标题");
+        AjNxInfo data = (AjNxInfo) normalMultipleEntity.content;
+        Holder holder = (Holder) baseViewHolder;
+        String title = data.getTitle();
+        if (isBhImage(title)) {
+            Glide.with(getContext()).load(data.getUrl())
+                    .into(holder.iv);
+        }
+
+
+        holder.tvTitle.setText(data.getTitle());
+    }
+
+    public boolean isBhImage(String content) {
+        if(content==null|| TextUtils.isEmpty(content)){
+            return false;
+        }
+        if (content.contains(".png")) {
+            return true;
+        } else if (content.contains(".jpg")) {
+            return true;
+        } else if (content.contains(".bmp")) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     @Override
@@ -44,11 +72,14 @@ public class FuJianImgProvider extends BaseItemProvider<NormalMultipleEntity> {
     }
 
     public static class Holder extends BaseViewHolder {
-        //@BindView(R.id.tv_title)
-        //TextView tvTitle;
+        @BindView(R.id.iv)
+        ImageView iv;
+        @BindView(R.id.tv_title)
+        TextView tvTitle;
+
         public Holder(View view) {
             super(view);
-            //ButterKnife.bind(this, view);
+            ButterKnife.bind(this, view);
         }
     }
 }

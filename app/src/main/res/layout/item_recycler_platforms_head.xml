@@ -16,9 +16,9 @@
             android:layout_height="0dp"
             android:layout_marginRight="@dimen/dp_3"
             android:background="@color/white"
-            app:hint="案件性质选择"
             app:arrowBgDrawable="?attr/selectableItemBackgroundBorderless"
             app:arrowDrawable="@mipmap/ic_xia_la"
+            app:hint="案件性质选择"
             app:imagePadingBottom="@dimen/dp_10"
             app:imagePadingLeft="7dp"
             app:imagePadingRight="@dimen/sp_7"
@@ -79,32 +79,32 @@
         android:textColor="@color/white"
         android:textSize="@dimen/sp_14" />
 
-    <LinearLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_marginBottom="@dimen/dp_17"
-        android:orientation="horizontal">
+        app:justifyContent="space_around"
+        app:flexWrap="wrap">
 
         <TextView
             android:id="@+id/tv_type_dx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_corners_stroke_coloraccent"
-
+            android:background="@drawable/shape_corners_stroke_white"
             android:clickable="true"
             android:paddingLeft="@dimen/dp_16"
             android:paddingTop="@dimen/dp_5"
             android:paddingRight="@dimen/dp_16"
             android:paddingBottom="@dimen/dp_5"
             android:text="对象人员"
-            android:textColor="@color/white" />
+            android:layout_marginTop="@dimen/dp_10"
+            android:textColor="@color/colorAccent"
+         />
 
         <TextView
             android:id="@+id/tv_type_sd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_8"
             android:background="@drawable/shape_corners_stroke_white"
             android:clickable="true"
             android:paddingLeft="@dimen/dp_16"
@@ -112,7 +112,52 @@
             android:paddingRight="@dimen/dp_16"
             android:paddingBottom="@dimen/dp_5"
             android:text="涉毒人员"
+            android:layout_marginTop="@dimen/dp_10"
             android:textColor="@color/colorAccent" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_type_ww"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_corners_stroke_white"
+            android:clickable="true"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="维稳人员"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/tv_type_xyr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_corners_stroke_white"
+            android:clickable="true"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="嫌疑人"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textColor="@color/colorAccent" />
+
+
+        <TextView
+            android:id="@+id/tv_type_xt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/shape_corners_stroke_white"
+            android:clickable="true"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_16"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="其他"
+            android:textColor="@color/colorAccent" />
+
+
+    </com.google.android.flexbox.FlexboxLayout>
 </LinearLayout>

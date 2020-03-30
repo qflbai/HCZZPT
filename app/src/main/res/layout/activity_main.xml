@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
             android:gravity="center"
-            android:text="安监协作平台"
+            android:text="案件协作平台"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_14" />
     </LinearLayout>

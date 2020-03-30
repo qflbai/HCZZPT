@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_22"
-        android:text="警号"
+        android:text="警号:"
         android:textColor="@color/_797979"
         android:textSize="@dimen/sp_12"
         app:layout_constraintBottom_toBottomOf="@id/iv_tx"
@@ -71,9 +71,10 @@
         android:layout_marginTop="@dimen/dp_7"
         android:layout_marginRight="@dimen/dp_10"
         android:background="@color/_f2f2f2"
-        app:layout_constraintTop_toBottomOf="@id/tv_zw" />
+        app:layout_constraintTop_toBottomOf="@id/iv_tx" />
 
     <TextView
+        android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_84"
         android:layout_marginLeft="@dimen/dp_15"

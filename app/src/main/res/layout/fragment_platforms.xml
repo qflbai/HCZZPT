@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_5"
             android:background="@null"
-            android:hint="可搜索嫌疑人ID/嫌疑人姓名/嫌疑人身份证号"
+            android:hint="可搜索案件ID/案件名称/案件关键字"
             android:imeOptions="actionSearch"
             android:paddingRight="@dimen/dp_5"
             android:singleLine="true"
@@ -156,12 +156,25 @@
 
         </LinearLayout>-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10" />
+            android:layout_marginTop="@dimen/dp_14"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never" />
+
+            <com.scwang.smart.refresh.footer.ClassicsFooter
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -9,6 +9,15 @@ package com.yuanxin.hczzpt.platforms.bean;
 public class FujianTimeTitleInfo {
    private String Title;
    private boolean isShowAdd;
+   private Object object;
+
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
+    }
 
     public String getTitle() {
         return Title;

@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.provider.BaseItemProvider;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.platforms.adapter.NormalMultipleEntity;
+import com.yuanxin.hczzpt.platforms.bean.TeamDetailsInfo;
 import com.yuanxin.hczzpt.platforms.bean.TeamTitleInfo;
 
 import butterknife.BindView;
@@ -21,6 +22,8 @@ import butterknife.ButterKnife;
  * @description:
  */
 public class TitleProvider extends BaseItemProvider<NormalMultipleEntity> {
+
+    private OnItemClick mAddOnClick;
 
     @Override
     public int getItemViewType() {
@@ -46,12 +49,29 @@ public class TitleProvider extends BaseItemProvider<NormalMultipleEntity> {
         }else {
             holder.tvAdd.setVisibility(View.GONE);
         }
+
+        holder.tvAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mAddOnClick!=null){
+                    mAddOnClick.onItemClick(v,content);
+                }
+            }
+        });
     }
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.item_recycler_platforms_team_title, null, false);
         return new Holder(inflate);
+    }
+
+    public void setAddOnClick(OnItemClick addOnClick){
+        mAddOnClick = addOnClick;
+    }
+
+    public interface OnItemClick {
+        void onItemClick(View view,  TeamTitleInfo teamTitleInfo);
     }
 
     public static class Holder extends BaseViewHolder {

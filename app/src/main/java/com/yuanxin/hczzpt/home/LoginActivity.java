@@ -1,6 +1,5 @@
 package com.yuanxin.hczzpt.home;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
@@ -8,7 +7,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,14 +20,19 @@ import com.lxj.xpopup.interfaces.OnCancelListener;
 import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.qflbai.lib.base.activity.BaseActivity;
 import com.qflbai.lib.net.RetrofitManage;
+
 import com.qflbai.lib.net.body.ServerResponseResult;
 import com.qflbai.lib.net.callback.NetCallback;
 import com.qflbai.lib.net.rxjava.NetObserver;
+import com.qflbai.lib.net.url.BaseNetApi;
+import com.qflbai.lib.utils.sharedpreferences.SpUtil;
 import com.qflbai.lib.utils.toast.ToastUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.yuanxin.hczzpt.App;
 import com.yuanxin.hczzpt.MainActivity;
 import com.yuanxin.hczzpt.R;
 import com.yuanxin.hczzpt.constant.NetApi;
+import com.yuanxin.hczzpt.home.bean.UserInfo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +47,10 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginActivity extends BaseActivity {
     @BindView(R.id.root)
     View root;
+    @BindView(R.id.et_username)
+    EditText etName;
+    @BindView(R.id.et_pw)
+    EditText etPw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +77,8 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initData() {
         root.setVisibility(View.VISIBLE);
+        String login_user = SpUtil.getString(mContext, "login_user", "");
+        etName.setText(login_user);
     }
 
     /**
@@ -116,11 +128,18 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.tv_login)
     public void login(){
-        Intent intent = new Intent(mContext, MainActivity.class);
-        startActivity(intent);
 
-        String path = "";//NetApi.Path.login;
+        String  name= etName.getText().toString().trim();
+        String pw = etPw.getText().toString().trim();
+        if(TextUtils.isEmpty(name)||TextUtils.isEmpty(pw)){
+            ToastUtil.show(mContext,"请填写账号或密码");
+            return;
+        }
+
+        String path = NetApi.Path.login;
         Map<String, Object> map = new HashMap<>();
+        map.put("user_name",name);
+        map.put("user_pass",pw);
 
         showDialogLoading();
         RetrofitManage.newInstance().createService()
@@ -132,13 +151,21 @@ public class LoginActivity extends BaseActivity {
                     public void onResponse(String s) {
                         hideDialogLoading();
                         ServerResponseResult serverResponseResult = JSON.parseObject(s, ServerResponseResult.class);
-                        if (serverResponseResult.isSucceed()) {
+                        String code = serverResponseResult.getCode();
+                        if("200".equals(code)){
                             Object data = serverResponseResult.getData();
+                            String s1 = JSON.toJSONString(data);
+                            UserInfo userInfo = JSON.parseObject(s1, UserInfo.class);
+                            App.userName = userInfo.getUser_name();
+                            String token = userInfo.getToken();
+                            String refresh = userInfo.getRefresh();
+                            BaseNetApi.setToken(token);
+                            BaseNetApi.setJwtRefresh(refresh);
+                            SpUtil.putString(mContext,"login_user",name);
                             Intent intent = new Intent(mContext, MainActivity.class);
                             startActivity(intent);
-                        } else {
-                            ToastUtil.showCenter(mContext, serverResponseResult.getMsg());
                         }
+
                     }
 
                     @Override

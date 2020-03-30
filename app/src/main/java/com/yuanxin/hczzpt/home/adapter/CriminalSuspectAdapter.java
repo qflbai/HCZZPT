@@ -76,6 +76,30 @@ public class CriminalSuspectAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             }
         });
 
+        CriminalSuspectInfo criminalSuspectInfo = data.get(position);
+        String name = criminalSuspectInfo.getName();
+        String id_card = criminalSuspectInfo.getId_card();
+        String id_wechat = criminalSuspectInfo.getId_wechat();
+        String number_id = criminalSuspectInfo.getNumber_id();
+        String tag = criminalSuspectInfo.getTag();
+
+        holder.tvName.setText(name);
+        holder.tvWxh.setText(id_wechat);
+        if ("wen".equals(tag)) {
+            tag = "维稳人员";
+        } else if ("du".equals(tag)) {
+            tag = "涉毒人员";
+        } else if ("dui".equals(tag)) {
+            tag = "对象人员";
+        } else if ("man".equals(tag)) {
+            tag = "嫌疑人";
+        } else if ("otd".equals(tag)) {
+            tag = "其他";
+        }
+        holder.tvGzr.setText(tag);
+        holder.tvCardid.setText(id_card);
+        holder.criminalId.setText(number_id);
+
     }
 
     public void setOnDeleteClick(OnItemClick onItemClick) {
@@ -96,7 +120,7 @@ public class CriminalSuspectAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemCount() {
-        return data.size() <= 0 ? 100 : data.size();
+        return data.size();
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
