@@ -97,7 +97,7 @@ public class NetApi extends BaseNetApi {
          * 研制信息图片上传
          */
         String casempic = "casempic";
-
+        String casehfile = "casehfile";
         /**
          * 研制信息提交
          */
