@@ -66,12 +66,12 @@ public class NetApi extends BaseNetApi {
         /**
          * 头像上传
          */
-        String distrustpic = "distrustpic";
+        String distrustpic = "distrustexupic";
 
         /**
          * 嫌疑人案件图片(删除也用)
          */
-        String distrustexpic = "distrustexpic";
+        String distrustexpic = "distrustexupic";
 
         /**
          * 获取案件信息

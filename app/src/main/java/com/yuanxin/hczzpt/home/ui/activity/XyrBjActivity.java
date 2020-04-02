@@ -110,6 +110,7 @@ public class XyrBjActivity extends BaseActivity {
     private String mId;
     private String xyrId;
     private String mAjxiId;
+    private String mTxId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +154,14 @@ public class XyrBjActivity extends BaseActivity {
 
             @Override
             public void onDeleteClick(int position, String filePath, String tag, int type) {
-                deletImage(position, filePath);
+
+
+                xzImageInfos.remove(position);
+
+                //移除position位置的图片
+                mIb.removeImage(position);
+
+                //   deletImage(position, filePath);
             }
 
             @Override
@@ -232,10 +240,10 @@ public class XyrBjActivity extends BaseActivity {
         String path = NetApi.Path.distrustpic;
         Map<String, RequestBody> map = new HashMap<>();
 
-        RequestBody b1 = RequestBody.create(MediaType.parse("multipart/form-data"), xyrId);
+        // RequestBody b1 = RequestBody.create(MediaType.parse("multipart/form-data"), xyrId);
         RequestBody b3 = RequestBody.create(MediaType.parse("multipart/form-data"), "android");
 
-        map.put("user_id", b1);
+        // map.put("user_id", b1);
         map.put("version", b3);
 
         File file = new File(cutPath);
@@ -263,7 +271,7 @@ public class XyrBjActivity extends BaseActivity {
 
                             XzImageInfo xzImageInfo = JSON.parseObject(s1, XzImageInfo.class);
                             xzImageInfos.add(xzImageInfo);
-
+                            mTxId = xzImageInfo.getId();
                             Glide.with(mContext)
                                     .load(NetApi.baseUrl + xzImageInfo.getFile())
                                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
@@ -436,12 +444,12 @@ public class XyrBjActivity extends BaseActivity {
                                 }
                                 mEtbz.setText(info.getAction_remark());
 
-                                String avatar_id = info.getAvatar_id();
+                                String avatar_id = info.get_avatar_id();
                                 Glide.with(mContext).load(NetApi.baseUrl + avatar_id)
                                         .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                                         .into(ivTx);
 
-                                List<SdryXx.InfoBean.ActionImagesBean> action_images = info.getAction_images();
+                                List<SdryXx.InfoBean.ActionImagesBean> action_images = info.get_action_images();
 
                                 if (action_images != null && action_images.size() > 0) {
 
@@ -449,6 +457,7 @@ public class XyrBjActivity extends BaseActivity {
                                         String imagesBeanPath = actionImagesBean.getPath();
                                         String url = NetApi.baseUrl + imagesBeanPath;
                                         XzImageInfo xzImageInfo = new XzImageInfo();
+                                        xzImageInfo.setId(actionImagesBean.getId());
                                         xzImageInfo.setFile(url);
                                         xzImageInfos.add(xzImageInfo);
                                         mIb.addImage(url);
@@ -545,6 +554,16 @@ public class XyrBjActivity extends BaseActivity {
         map.put("action_time", mZpsj);
         map.put("action_address", mEtZbdz.getText().toString());
         map.put("action_remark", mEtbz.getText().toString());
+
+        map.put("avatar_id", mTxId);
+
+        List<String> imageIdList = new ArrayList<>();
+        for (XzImageInfo xzImageInfo : xzImageInfos) {
+            imageIdList.add(xzImageInfo.getId());
+
+        }
+
+        map.put("action_images", CommonUtils.dataAddDhString(imageIdList));
 
         map.put("version", "android");
 

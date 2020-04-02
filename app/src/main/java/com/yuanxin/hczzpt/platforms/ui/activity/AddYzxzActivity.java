@@ -190,7 +190,8 @@ public class AddYzxzActivity extends BaseActivity {
                         if ("200".equals(code)) {
                             XzInfo xzInfo = JSON.parseObject(JSON.toJSONString(serverResponseResult.getData()), XzInfo.class);
                             yzId = xzInfo.getId();
-                            tvSubmit.setVisibility(View.GONE);
+                           // tvSubmit.setVisibility(View.GONE);
+                            finish();
                         }
 
                     }
@@ -213,13 +214,13 @@ public class AddYzxzActivity extends BaseActivity {
     @OnClick(R.id.tv_add)
     public void add() {
 
-        if (yzId == null) {
+        /*if (yzId == null) {
             ToastUtil.showCenter(mContext, "请先提交");
             return;
-        }
+        }*/
 
         if (xzImageInfos.size() < 1) {
-            ToastUtil.showCenter(mContext, "请添加图片");
+            ToastUtil.showCenter(mContext, "请添加附件");
             return;
         }
 

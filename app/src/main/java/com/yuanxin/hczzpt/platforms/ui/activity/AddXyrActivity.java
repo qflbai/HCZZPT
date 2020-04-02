@@ -105,6 +105,7 @@ public class AddXyrActivity extends BaseActivity {
     private AjXzInfo.ListBean mAjXzInfo;
     private List<XzImageInfo> xzImageInfos;
     private AddXyrInfo addXyrInfo;
+    private String mTxId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +120,7 @@ public class AddXyrActivity extends BaseActivity {
             initBackToolbar("添加嫌疑人");
         }
 
-        ivTx.setVisibility(View.GONE);
+        //ivTx.setVisibility(View.GONE);
 
         getIvBack().setImageResource(R.mipmap.ic_bs_fh);
         initIb();
@@ -133,7 +134,7 @@ public class AddXyrActivity extends BaseActivity {
 
     private void initIb() {
         xzImageInfos = new ArrayList<>();
-        mIb.setVisibility(View.GONE);
+        //mIb.setVisibility(View.GONE);
         mIb.setOnlineImageLoader(new ImageBox.OnlineImageLoader() {
             @Override
             public void onLoadImage(ImageView iv, String url) {
@@ -149,7 +150,9 @@ public class AddXyrActivity extends BaseActivity {
 
             @Override
             public void onDeleteClick(int position, String filePath, String tag, int type) {
-                deletImage(position,filePath);
+                xzImageInfos.remove(position);
+                mIb.removeImage(position);
+                //deletImage(position,filePath);
             }
 
             @Override
@@ -235,10 +238,10 @@ public class AddXyrActivity extends BaseActivity {
         String path = NetApi.Path.distrustpic;
         Map<String, RequestBody> map = new HashMap<>();
 
-        RequestBody b1 = RequestBody.create(MediaType.parse("multipart/form-data"), addXyrInfo != null ? addXyrInfo.getId() : "");
+        //RequestBody b1 = RequestBody.create(MediaType.parse("multipart/form-data"), addXyrInfo != null ? addXyrInfo.getId() : "");
         RequestBody b3 = RequestBody.create(MediaType.parse("multipart/form-data"), "android");
 
-        map.put("user_id", b1);
+        //map.put("user_id", b1);
         map.put("version", b3);
 
         File file = new File(cutPath);
@@ -266,6 +269,7 @@ public class AddXyrActivity extends BaseActivity {
 
                             XzImageInfo xzImageInfo = JSON.parseObject(s1, XzImageInfo.class);
                             xzImageInfos.add(xzImageInfo);
+                            mTxId = xzImageInfo.getId();
 
                             Glide.with(mContext)
                                     .load(NetApi.baseUrl + xzImageInfo.getFile())
@@ -291,11 +295,11 @@ public class AddXyrActivity extends BaseActivity {
         String path = NetApi.Path.distrustexpic;
         Map<String, RequestBody> map = new HashMap<>();
 
-        RequestBody b1 = RequestBody.create(MediaType.parse("multipart/form-data"), addXyrInfo != null ? addXyrInfo.getId() : "");
+       // RequestBody b1 = RequestBody.create(MediaType.parse("multipart/form-data"), addXyrInfo != null ? addXyrInfo.getId() : "");
         RequestBody b2 = RequestBody.create(MediaType.parse("multipart/form-data"), "add");
         RequestBody b3 = RequestBody.create(MediaType.parse("multipart/form-data"), "android");
 
-        map.put("id", b1);
+       // map.put("id", b1);
         map.put("action", b2);
         map.put("version", b3);
 
@@ -458,6 +462,15 @@ public class AddXyrActivity extends BaseActivity {
         map.put("action_address", mEtZbdz.getText().toString());
         map.put("action_remark", mEtbz.getText().toString());
 
+        map.put("avatar_id",mTxId);
+
+        List<String> imageIdList = new ArrayList<>();
+        for( XzImageInfo xzImageInfo:xzImageInfos){
+            imageIdList.add(xzImageInfo.getId());
+        }
+
+        map.put("action_images",CommonUtils.dataAddDhString(imageIdList));
+
         map.put("version", "android");
 
         CommonUtils.removeNull(map);
@@ -479,10 +492,14 @@ public class AddXyrActivity extends BaseActivity {
                             Object data = serverResponseResult.getData();
                             String s1 = JSON.toJSONString(data);
                             addXyrInfo = JSON.parseObject(s1, AddXyrInfo.class);
-                            mTvSubmit.setVisibility(View.GONE);
-                            ivTx.setVisibility(View.VISIBLE);
-                            mIb.setVisibility(View.VISIBLE);
-                            getTvSubtitleTitle().setVisibility(View.GONE);
+                           // mTvSubmit.setVisibility(View.GONE);
+                           // ivTx.setVisibility(View.VISIBLE);
+                          //  mIb.setVisibility(View.VISIBLE);
+                          //  getTvSubtitleTitle().setVisibility(View.GONE);
+                            if(addXyrInfo!=null){
+                                EventBus.getDefault().post(new EventMessage(1));
+                                finish();
+                            }
                         }
 
                     }
@@ -566,11 +583,9 @@ public class AddXyrActivity extends BaseActivity {
         EventBus.getDefault().removeAllStickyEvents();
     }
 
-    @Override
+  /*  @Override
     protected void onFinish() {
-        if(addXyrInfo!=null){
-            EventBus.getDefault().post(new EventMessage(1));
-        }
+
         finish();
     }
 
@@ -580,5 +595,5 @@ public class AddXyrActivity extends BaseActivity {
             EventBus.getDefault().post(new EventMessage(1));
         }
         finish();
-    }
+    }*/
 }

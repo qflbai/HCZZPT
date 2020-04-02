@@ -1,5 +1,7 @@
 package com.yuanxin.hczzpt.home.bean;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.List;
 
 public class SdryXx {
@@ -29,25 +31,28 @@ public class SdryXx {
     }
 
     public static class InfoBean {
+
         /**
          * number_id : 200309167
-         * man_name : 来来来
-         * avatar_id : /Uploads/Images/2020-03-16/IMG_20200316_22374266_23357673.jpeg
+         * man_name : 开口
+         * avatar_id : 65
          * id_card : 440103199104180016
          * id_car : 好好
-         * id_wechat : 刚刚好
-         * phone : 13000000888
-         * case_id : 42
+         * id_wechat : 急急急
+         * phone : 18866555666
+         * case_id : 60
          * tag :
-         * action_name : 好好
+         * action_name : 急急急
          * action_type : 1
-         * action_time : 2020-03-16 22:12:37
-         * action_address : 公关
+         * action_time : 2020-03-31 20:05:40
+         * action_address : 嫁接
          * action_position :
-         * action_remark :
-         * action_images : [{"id":"42","name":"IMG_20200316_22375852.jpeg","path":"/Uploads/Images/2020-03-16/IMG_20200316_22375852_40146486.jpeg"}]
+         * action_remark : 合集
+         * action_images : 65,66,67
          * state : 10
          * avatar :
+         * _avatar_id : /Uploads/Images/2020-03-31/IMG_20200331_20390634_90669194.jpeg
+         * _action_images : [{"id":"65","name":"IMG_20200331_20390634.jpeg","path":"/Uploads/Images/2020-03-31/IMG_20200331_20390634_90669194.jpeg"},{"id":"66","name":"IMG_20200331_20401868.jpeg","path":"/Uploads/Images/2020-03-31/IMG_20200331_20401868_53320101.jpeg"},{"id":"67","name":"IMG_20200331_20404344.jpeg","path":"/Uploads/Images/2020-03-31/IMG_20200331_20404344_31512211.jpeg"}]
          */
 
         private String number_id;
@@ -65,9 +70,11 @@ public class SdryXx {
         private String action_address;
         private String action_position;
         private String action_remark;
+        private String action_images;
         private String state;
         private String avatar;
-        private List<ActionImagesBean> action_images;
+        private String _avatar_id;
+        private List<ActionImagesBean> _action_images;
 
         public String getNumber_id() {
             return number_id;
@@ -189,6 +196,14 @@ public class SdryXx {
             this.action_remark = action_remark;
         }
 
+        public String getAction_images() {
+            return action_images;
+        }
+
+        public void setAction_images(String action_images) {
+            this.action_images = action_images;
+        }
+
         public String getState() {
             return state;
         }
@@ -205,19 +220,31 @@ public class SdryXx {
             this.avatar = avatar;
         }
 
-        public List<ActionImagesBean> getAction_images() {
-            return action_images;
+        @JSONField(name="_avatar_id")
+        public String get_avatar_id() {
+            return _avatar_id;
         }
 
-        public void setAction_images(List<ActionImagesBean> action_images) {
-            this.action_images = action_images;
+        @JSONField(name="_avatar_id")
+        public void set_avatar_id(String _avatar_id) {
+            this._avatar_id = _avatar_id;
+        }
+
+        @JSONField(name="_action_images")
+        public List<ActionImagesBean> get_action_images() {
+            return _action_images;
+        }
+
+        @JSONField(name="_action_images")
+        public void set_action_images(List<ActionImagesBean> _action_images) {
+            this._action_images = _action_images;
         }
 
         public static class ActionImagesBean {
             /**
-             * id : 42
-             * name : IMG_20200316_22375852.jpeg
-             * path : /Uploads/Images/2020-03-16/IMG_20200316_22375852_40146486.jpeg
+             * id : 65
+             * name : IMG_20200331_20390634.jpeg
+             * path : /Uploads/Images/2020-03-31/IMG_20200331_20390634_90669194.jpeg
              */
 
             private String id;
