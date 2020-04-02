@@ -20,6 +20,7 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.qflbai.lib.base.activity.BaseActivity;
+import com.qflbai.lib.base.data.ViewState;
 import com.qflbai.lib.net.RetrofitManage;
 import com.qflbai.lib.net.body.ServerResponseResult;
 import com.qflbai.lib.net.callback.NetCallback;
@@ -68,6 +69,7 @@ public class AddYzxzActivity extends BaseActivity {
     TextView tvSubmit;
     private String mId;
     private ArrayList<String> xzImageInfos;
+    private ArrayList<String> fileIds;
     private String yzId;
     private boolean isAddImageAble = true;
 
@@ -84,6 +86,7 @@ public class AddYzxzActivity extends BaseActivity {
 
     private void initIb() {
         xzImageInfos = new ArrayList<>();
+        fileIds = new ArrayList<>();
         mIb.setDefaultPicId(R.mipmap.ic_wjj);
         mIb.setOnlineImageLoader(new ImageBox.OnlineImageLoader() {
             @Override
@@ -172,6 +175,9 @@ public class AddYzxzActivity extends BaseActivity {
         map.put("summary", content);
         map.put("version", "android");
 
+        String files = CommonUtils.dataAddDhString(this.fileIds);
+
+        map.put("files",files);
         CommonUtils.removeNull(map);
 
         showDialogLoading();
@@ -230,16 +236,16 @@ public class AddYzxzActivity extends BaseActivity {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 for (String filePath : xzImageInfos) {
-                    String path = NetApi.Path.casempic;
+                    String path = NetApi.Path.casehfile;
                     Map<String, RequestBody> map = new HashMap<>();
 
                     RequestBody b1 = RequestBody.create(MediaType.parse("multipart/form-data"), "addFile");
-                    RequestBody b2 = RequestBody.create(MediaType.parse("multipart/form-data"), yzId);
+                   // RequestBody b2 = RequestBody.create(MediaType.parse("multipart/form-data"), yzId);
                     RequestBody b3 = RequestBody.create(MediaType.parse("multipart/form-data"), "android");
 
 
                     map.put("action", b1);
-                    map.put("msg_id", b2);
+                    //map.put("msg_id", b2);
                     map.put("version", b3);
 
                     File file = new File(filePath);
@@ -253,7 +259,30 @@ public class AddYzxzActivity extends BaseActivity {
                             .subscribe(new Consumer<Response<ResponseBody>>() {
                                 @Override
                                 public void accept(Response<ResponseBody> responseBodyResponse) throws Exception {
+                                    boolean successful = responseBodyResponse.isSuccessful();
+                                    if (successful) {
+                                        int code = responseBodyResponse.code();
+                                        if (code == 200) {
+                                            try {
 
+                                                String jsonString = ((ResponseBody) responseBodyResponse.body()).string();
+                                                ServerResponseResult serverResponseResult = JSON.parseObject(jsonString, ServerResponseResult.class);
+
+                                                Object data = serverResponseResult.getData();
+                                                String s1 = JSON.toJSONString(data);
+
+                                                XzImageInfo xzImageInfo = JSON.parseObject(s1, XzImageInfo.class);
+                                                String url = NetApi.baseUrl + xzImageInfo.getFile();
+                                                xzImageInfo.setFile(url);
+                                                fileIds.add(xzImageInfo.getId());
+                                            } catch (Exception throwable) {
+                                                throwable.printStackTrace();
+                                                emitter.onError(throwable);
+                                            }
+                                        } else {
+                                            emitter.onError(new Throwable());
+                                        }
+                                    }
                                 }
                             }, new Consumer<Throwable>() {
                                 @Override
@@ -276,7 +305,6 @@ public class AddYzxzActivity extends BaseActivity {
                         mIb.setDeletable(false);
                         hideDialogLoading();
                         ToastUtil.showCenter(mContext,"上传成功");
-                        finish();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
